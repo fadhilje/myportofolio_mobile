@@ -148,6 +148,11 @@ class ItemCard extends StatelessWidget {
                 content: Text("Kamu telah menekan tombol ${item.name}!"),
               ),
             );
+
+          if (item.name == "Tambah Proyek"){
+            // TODO: Gunakan Navigator.push() untuk melakukan navigasi ke MaterialPageRoute yang mencakup ProjectFormPage
+            
+          }
         },
         child: Container(
           padding: const EdgeInsets.all(8),
