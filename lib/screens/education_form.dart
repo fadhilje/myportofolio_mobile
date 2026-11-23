@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myportofolio_mobile/screens/menu.dart';
 import 'package:myportofolio_mobile/widgets/left_drawer.dart';
 
 class EducationFormPage extends StatefulWidget {
@@ -134,7 +135,13 @@ class _EducationFormPageState extends State<EducationFormPage> {
           actions: [
             TextButton(
               child: const Text('OK'),
-              onPressed: () => Navigator.pop(context),
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyHomePage()),
+                );
+              },
             ),
           ],
         );

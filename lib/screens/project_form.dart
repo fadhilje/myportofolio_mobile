@@ -1,6 +1,6 @@
-import 'package:material_ui/material_ui.dart';
-
+import 'package:flutter/material.dart';
 import 'package:myportofolio_mobile/widgets/left_drawer.dart';
+import 'package:myportofolio_mobile/screens/menu.dart';
 
 class ProjectFormPage extends StatefulWidget {
   const ProjectFormPage({super.key});
@@ -190,7 +190,11 @@ class _ProjectFormPageState extends State<ProjectFormPage> {
                                   child: const Text('OK'),
                                   onPressed: () {
                                     Navigator.pop(context);
-                                    _formKey.currentState!.reset();
+                                    Navigator.pushReplacement(
+                                      context
+                                      , MaterialPageRoute(builder: (context) => MyHomePage())
+                                      );
+                                    // _formKey.currentState!.reset();
                                   },
                                 ),
                               ],
