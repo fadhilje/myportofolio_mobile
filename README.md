@@ -139,3 +139,33 @@ Kalau tampilan terasa tidak sesuai dengan kode terbaru setelah hot reload, coba 
 
 ## AI Disclosure
 Di tugas Kali ini saya tidak menggunakan GenAI apapun. Di tugas ini, saya hanya berpedoman pada tutorial yang telah di sediakan.
+
+# Tugas 8
+## Pertanyaan Relatif
+### 1. Jelaskan perbedaan antara `Navigator.push()`, `Navigator.pushReplacement()`, dan `Navigator.pop()`. Metode apa yang digunakan untuk membuka formulir dari kartu aksi? Jelaskan juga bagaimana opsi Home di drawer membawa pengguna kembali ke halaman utama.
+
+Navigator mengelola halaman seperti stack. `push()` menaruh halaman baru di atas halaman saat ini sehingga halaman sebelumnya masih bisa dikembalikan dengan back. `pushReplacement()` mengganti halaman saat ini dengan halaman baru, sehingga halaman lama dihapus dari stack dan tidak bisa dikembalikan. `pop()` membuang halaman paling atas dan kembali ke halaman sebelumnya, sama seperti tombol back.
+
+Formulir dari kartu aksi dibuka dengan `Navigator.push()` yang dipicu di onTap kartu saat `item.name == "Tambah Proyek"`. Halaman form ditumpuk di atas Home dan Home tidak dibuang, jadi pengguna masih bisa kembali dengan tombol back (`pop()`). Pada drawer, opsi Home memanggil `Navigator.pushReplacement()` ke MyHomePage, sehingga halaman yang sedang tampil diganti dengan halaman utama dan dihapus dari stack. Dengan begitu pengguna kembali ke Home tanpa menumpuk halaman setiap berpindah lewat drawer.
+
+### 2. Bagaimana susunan `Scaffold`, `AppBar`, dan `Drawer` membantu menjaga struktur halaman tetap konsisten? Berikan satu contoh penggunaan warna tema portofolio di lebih dari satu halaman.
+
+`Scaffold` berfungsi sebagai kerangka dasar halaman dengan slot yang tetap: `AppBar` di bagian atas untuk judul halaman, `Drawer` di sisi kiri untuk menu navigasi, dan body untuk isi halaman. Karena setiap halaman (Home, form Proyek, form Pendidikan) memakai susunan yang sama dan hanya mengganti isi body, posisi judul, tombol menu, dan navigasinya selalu konsisten. LeftDrawer juga dibuat sebagai widget terpisah sehingga cukup ditulis sekali dan dipakai ulang di semua halaman, jadi pengguna tidak perlu belajar ulang tata letak setiap berpindah halaman.
+
+Contoh penggunaan warna tema portofolio: warna indigo yang didefinisikan sebagai `seedColor` di `main.dart` dipakai pada `AppBar` halaman Home (lewat `Theme.of(context).colorScheme.primary`) dan juga pada `AppBar` serta tombol Simpan di halaman form Proyek (`Colors.indigo`). Dengan begitu identitas visual aplikasi tetap seragam di lebih dari satu halaman.
+
+### 3. Mengapa tata letak tersebut dipilih untuk formulir? Jelaskan peran widget pengatur jarak dan widget penggulir ketika ruang layar terbatas.
+Formulir disusun secara vertikal menggunakan `Column` karena urutan baca dari atas ke bawah terasa natural bagi pengguna. Setiap field punya label yang jelas sehingga pengguna lebih mudah memahami data apa yang harus diisi dan tidak mudah bingung. Setiap field dibungkus `Padding` agar ada jarak antar field dan jarak dari tepi layar, sehingga tampilan tidak menempel, lebih mudah dibaca, dan lebih mudah disentuh.
+
+Seluruh isi form dibungkus `SingleChildScrollView` karena ruang layar terbatas, terutama saat keyboard muncul dan area tampilan menyusut. Dengan widget ini, konten tetap bisa digeser sehingga semua field dan tombol Simpan tetap terjangkau. Tanpa `SingleChildScrollView`, field di bagian bawah bisa tertutup keyboard sehingga pengguna tidak bisa melihat apa yang diketik, dan Flutter dapat menampilkan error overflow karena konten lebih tinggi dari ruang yang tersedia. Jadi `Padding` mengatur kelegaan tata letak, sedangkan `SingleChildScrollView` memastikan seluruh konten tetap dapat dijangkau di layar kecil.
+
+### 4. Apa peran `GlobalKey<FormState>`, `validator`, dan `validate()` saat tombol Simpan ditekan? Berikan satu contoh nilai yang ditolak oleh validasi dan jelaskan mengapa memilih jenis input atau papan ketik saja belum cukup.
+`GlobalKey<FormState>` dipasang pada widget Form sebagai penghubung, sehingga tombol Simpan yang berada di luar field dapat mengakses state form melalui `_formKey`.`currentState` dan memanggil `validate()`. `validator` adalah fungsi pada setiap field yang memeriksa isi input dan mengembalikan `null` jika valid atau teks pesan error jika tidak valid. Saat tombol Simpan ditekan, `validate()` menjalankan semua `validator`, menampilkan pesan `error` pada field yang gagal, dan mengembalikan `true` hanya jika semua field lolos. Karena itu dialog sukses hanya muncul jika `validate()` bernilai `true`.
+
+Contoh nilai yang ditolak adalah Nama Proyek yang dikosongkan atau hanya berisi spasi (" "), karena validator memeriksa isi dengan `trim()` sehingga muncul pesan "Nama proyek tidak boleh kosong".
+
+Memilih jenis input atau papan ketik saja belum cukup karena keyboard hanya mempermudah pengguna mengetik jenis data tertentu, misalnya keyboard angka, tetapi tidak membatasi isi yang diterima. Keyboard tidak dapat memaksa field wajib diisi, tidak dapat memeriksa apakah nilainya masuk akal (misalnya IPK 9.5), dan tidak dapat mencegah input dari paste atau keyboard fisik. `Validator` yang benar-benar menolak data yang tidak sesuai sebelum data diproses.
+
+## AI Disclosure
+Dalam pengerjaan tugas ini, saya menggunakan Claude (free plan) sebagai alat bantu saya untuk membantu saya men debug kode saya yg terjadi error, lalu brainstorming dan menjelaskan konsep terkait pertanyaan dan membantu saya dalam merapikan susunan kalimat jawaban saya, pemahaman akhir, pengecekan terhadap kode saya sendiri, dan keputusan isi jawaban tetap saya lakukan sendiri. Berikut adalah link claude yg saya gunakan:
+`https://claude.ai/share/e56aedc0-a1a4-402d-90f9-7dcd306970b8`
