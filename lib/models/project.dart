@@ -7,18 +7,24 @@ part 'project.g.dart';
 class Project {
   const Project({
     required this.title,
-    // TODO: Add required parameters for description, techStack, and projectUrl
-    // TODO: Add optional parameter projectImageUrl (default '') and nullable id
+    required this.description,
+    required this.techStack,
+    required this.projectUrl,
+    this.projectImageUrl = '',
+    this.id,
   });
 
-  // TODO: Implement factory Project.fromJson(Map<String, dynamic> json)
-  // delegating to _$ProjectFromJson(json)
+  factory Project.fromJson(Map<String, dynamic> json) =>
+      _$ProjectFromJson(json);
 
   @JsonKey(includeToJson: false)
   final String? id;
   final String title;
-  // TODO: Declare final String fields for description, techStack, projectUrl,
-  // and projectImageUrl (annotated with @JsonKey(defaultValue: ''))
+  final String description;
+  final String techStack;
+  final String projectUrl;
+  @JsonKey(defaultValue: '')
+  final String projectImageUrl;
 
-  // TODO: Implement Map<String, dynamic> toJson() delegating to _$ProjectToJson(this)
+  Map<String, dynamic> toJson() => _$ProjectToJson(this);
 }
