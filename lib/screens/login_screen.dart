@@ -32,11 +32,18 @@ class _LoginScreenState extends State<LoginScreen> {
     try {
       await context.read<AuthState>().login(_username, _password);
       if (!mounted) return;
+
+      Navigator.pop(context, true);
     } on ApiException catch (e) {
       if (!mounted) return;
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Login failed (${e.statusCode}): ${e.message}')),
+      );
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Tidak bisa terhubung ke server: $e")),
       );
     } finally {
       if (mounted) {

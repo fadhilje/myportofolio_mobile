@@ -54,7 +54,7 @@ class ItemCard extends StatelessWidget {
               ),
             );
           } else if (item.name == "Logout") {
-            final auth = context.watch<AuthState>();
+            final auth = context.read<AuthState>();
             if (!auth.isLoggedIn) {
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()

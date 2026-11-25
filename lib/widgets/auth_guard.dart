@@ -15,5 +15,5 @@ Future<bool> ensureLoggedIn(BuildContext context) async {
     context,
     MaterialPageRoute(builder: (context) => const LoginScreen()),
   );
-  throw loggedIn ?? false;
+  return loggedIn ?? false;
 }
