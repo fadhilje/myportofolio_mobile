@@ -84,9 +84,9 @@ class ApiClient {
     // TODO: Send HTTP POST to /api/v1/auth/logout/ with Authorization: 'Token $token'
     // and call _ensureSuccess(response).
     final response = await _client.post(
-      _uri('api/v1/auth/logout'),
+      _uri('/api/v1/auth/logout'),
       headers : {
-        'Accept' : 'application/json/',
+        'Accept' : 'application/json',
         'Authorization' : 'Token $token',
       },
     );
